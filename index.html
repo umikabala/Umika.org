@@ -39,6 +39,7 @@
       width:140px;height:140px;border-radius:12px;background:linear-gradient(180deg,#fff,#fbfbff);
       display:flex;align-items:center;justify-content:center;flex-direction:column;border:1px solid rgba(7,17,51,0.04);
       box-shadow:0 8px 20px rgba(7,17,51,0.03);
+      transform-origin:center;
     }
     .robot-card svg{width:84px;height:84px;display:block}
     .robot-label{font-size:13px;color:var(--muted);margin-top:8px}
@@ -47,6 +48,7 @@
       flex:1;border-radius:12px;padding:14px;background:linear-gradient(135deg,rgba(225,29,72,0.04),rgba(99,102,241,0.03));
       display:flex;flex-direction:column;justify-content:center;align-items:center;border:1px dashed rgba(7,17,51,0.03);
       min-height:140px;
+      transform-origin:center;
     }
     .art-title{font-weight:700;color:var(--text);margin-bottom:6px}
     .art-desc{color:var(--muted);font-size:13px;text-align:center}
@@ -65,6 +67,12 @@
 
     /* small confetti pieces appended to body */
     .confetti-piece{position:fixed;pointer-events:none;will-change:transform,opacity;z-index:9999}
+
+    /* decorative star pieces */
+    .confetti-star{position:fixed;pointer-events:none;will-change:transform,opacity;z-index:9999; color:#ffd166; font-size:14px; text-shadow:0 2px 6px rgba(0,0,0,0.12)}
+
+    /* subtle hover for robots/art for mouse users */
+    .robot-card:hover, .art-panel:hover{ transform: translateY(-6px) scale(1.02); transition:transform .25s ease; }
 
     /* accessibility */
     .sr{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
@@ -149,7 +157,7 @@
               <div class="age" id="ageNum">13</div>
             </div>
             <div style="text-align:right">
-              <div style="font-size:13px;color:var(--muted)">Date</div>
+              <div style="font-size:13px;color:var(--muted)">Born</div>
               <div class="date" id="dateLabel">Dec 25, 2025</div>
             </div>
           </div>
@@ -206,53 +214,75 @@
       document.getElementById('status').textContent = `Page ready for ${name || 'birthday person'}`;
     })();
 
-    // Confetti: use Web Animations API for reliable motion
-    function confettiBurst(count = 30) {
-      const colors = ['#ff7aa2','#ffd166','#60a5fa','#34d399','#f97316'];
+    // Utility
+    function rand(min, max){ return Math.random() * (max - min) + min; }
+    function randInt(min, max){ return Math.floor(rand(min, max+1)); }
+
+    // Confetti: improved and varied pieces, random bursts scheduled
+    function confettiBurst(count = 36, origin = {xFraction: 0.5, yFraction: 0.18}) {
+      const colors = ['#ff7aa2','#ffd166','#60a5fa','#34d399','#f97316','#bfe0ff','#ffd1eb'];
       const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
       const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
-      const originX = Math.round(vw * 0.5);
-      const originY = Math.round(vh * 0.18);
+      const originX = Math.round(vw * origin.xFraction);
+      const originY = Math.round(vh * origin.yFraction);
 
       for (let i = 0; i < count; i++) {
+        const kind = Math.random() < 0.12 ? 'star' : 'piece'; // some stars
+        if (kind === 'star') {
+          const star = document.createElement('div');
+          star.className = 'confetti-star';
+          star.textContent = '★';
+          star.style.left = (originX + rand(-80, 80)) + 'px';
+          star.style.top = (originY + rand(-20, 30)) + 'px';
+          star.style.opacity = '1';
+          star.style.transform = `translate3d(0,0,0) rotate(${rand(0,360)}deg) scale(${rand(0.8,1.6)})`;
+          document.body.appendChild(star);
+
+          const dx = rand(-320, 320);
+          const dy = rand(140, 520);
+          const dr = rand(-720, 720);
+
+          const anim = star.animate([
+            { transform: star.style.transform, opacity: 1 },
+            { transform: `translate3d(${dx}px, ${dy}px, 0) rotate(${dr}deg) scale(${rand(0.3,0.9)})`, opacity: 0 }
+          ], {
+            duration: 1000 + rand(200, 600),
+            easing: 'cubic-bezier(.2,.8,.2,1)',
+            fill: 'forwards'
+          });
+          anim.onfinish = () => star.remove();
+          continue;
+        }
+
         const el = document.createElement('div');
         el.className = 'confetti-piece';
-        const size = 6 + Math.random() * 12;
+        const size = randInt(6, 14);
         el.style.width = el.style.height = size + 'px';
-        el.style.background = colors[Math.floor(Math.random() * colors.length)];
-        // place near the top-center origin
-        const offsetX = (Math.random() * 120) - 60;
-        const offsetY = (Math.random() * 40) - 20;
-        el.style.left = (originX + offsetX) + 'px';
-        el.style.top = (originY + offsetY) + 'px';
+        el.style.background = colors[randInt(0, colors.length - 1)];
+        el.style.left = (originX + rand(-80, 80)) + 'px';
+        el.style.top = (originY + rand(-20, 30)) + 'px';
         el.style.borderRadius = (Math.random() > 0.6 ? '2px' : '50%');
         el.style.opacity = '1';
         el.style.pointerEvents = 'none';
-        el.style.transform = `translate3d(0,0,0) rotate(${Math.random()*360}deg)`;
+        el.style.transform = `translate3d(0,0,0) rotate(${rand(0,360)}deg)`;
         document.body.appendChild(el);
 
-        // compute a random flight vector (mostly downward + sideways for a pleasing burst)
-        const angle = (Math.random() * Math.PI) - Math.PI/3; // tilt slightly upwards-to-downwards
-        const distance = 160 + Math.random() * 300;
-        const dx = Math.cos(angle) * distance * (Math.random() > 0.5 ? 1 : -1);
-        const dy = Math.sin(angle) * distance + 150 + Math.random() * 120;
-        const rotate = (Math.random() * 720 - 360);
+        const angle = rand(-Math.PI/2 - 0.6, -Math.PI/2 + 0.6); // upward spread, then gravity pulls down in dy
+        const dist = rand(180, 520);
+        const dx = Math.cos(angle) * dist;
+        const dy = Math.sin(angle) * dist + rand(120, 380);
+        const rotate = rand(-720, 720);
 
-        // animate using Web Animations API (more reliable than transitions)
         const animation = el.animate([
           { transform: `translate3d(0px, 0px, 0) rotate(0deg)`, opacity: 1 },
           { transform: `translate3d(${dx}px, ${dy}px, 0) rotate(${rotate}deg)`, opacity: 0 }
         ], {
-          duration: 900 + Math.random() * 300,
+          duration: 900 + rand(100, 600),
           easing: 'cubic-bezier(.2,.8,.2,1)',
           iterations: 1,
           fill: 'forwards'
         });
-
-        // remove when finished
-        animation.onfinish = () => {
-          el.remove();
-        };
+        animation.onfinish = () => el.remove();
       }
     }
 
@@ -279,12 +309,64 @@
       }
     }
 
+    // Graphic transitions: randomly animate robots / art panel
+    function randomGraphicTransition() {
+      const targets = Array.from(document.querySelectorAll('.robot-card, .art-panel'));
+      if (!targets.length) return;
+      // pick 1-2 targets to animate
+      const count = randInt(1, Math.min(2, targets.length));
+      for (let i = 0; i < count; i++) {
+        const el = targets[randInt(0, targets.length-1)];
+        // small varied keyframes
+        const fx = [
+          [{ transform: 'translateY(0) scale(1) rotate(0deg)' }, { transform: `translateY(${rand(-8, -20)}px) scale(${rand(1.02,1.12)}) rotate(${rand(-6,6)}deg)` }, { transform: 'translateY(0) scale(1) rotate(0deg)' }],
+          [{ transform: 'rotate(0deg) scale(1)' }, { transform: `rotate(${rand(-8,8)}deg) scale(${rand(1.01,1.08)})` }, { transform: 'rotate(0deg) scale(1)' }],
+          [{ transform: 'translateX(0) scale(1)' }, { transform: `translateX(${rand(-12,12)}px) scale(${rand(0.98,1.06)}) rotate(${rand(-4,4)}deg)` }, { transform: 'translateX(0) scale(1)' }]
+        ];
+        const frames = fx[randInt(0, fx.length-1)];
+        const dur = randInt(700, 1400);
+        // play
+        el.animate(frames, { duration: dur, easing: 'ease-in-out', iterations: 1, fill: 'forwards' });
+        // ensure revert after a small delay to avoid sticky transforms
+        setTimeout(()=> {
+          el.animate([{ transform: 'none' }], { duration: 260, easing: 'ease-out', fill: 'forwards' });
+        }, dur + 80);
+      }
+    }
+
+    // Schedule random effects (confetti bursts and graphic transitions) at random intervals
+    let scheduled = true;
+    function scheduleRandomEffects() {
+      if (!scheduled) return;
+      // schedule a confetti burst sometime in 4-12s
+      const nextBurst = randInt(4000, 12000);
+      setTimeout(() => {
+        confettiBurst(randInt(12, 48), { xFraction: rand(0.35, 0.65), yFraction: rand(0.08, 0.28) });
+        // small graphic transition shortly after
+        setTimeout(randomGraphicTransition, randInt(200, 900));
+        // continue scheduling
+        scheduleRandomEffects();
+      }, nextBurst);
+
+      // schedule a lightweight graphic-only twitch 2-6s
+      const nextTwitch = randInt(2000, 6000);
+      setTimeout(() => {
+        randomGraphicTransition();
+      }, nextTwitch);
+    }
+
     // Wire buttons (ensure elements exist)
     const btnCelebrate = document.getElementById('btnCelebrate');
     if (btnCelebrate) {
       btnCelebrate.addEventListener('click', function(){
-        confettiBurst(36);
-        this.animate([{transform:'scale(1)'},{transform:'scale(1.04)'},{transform:'scale(1)'}], {duration:320});
+        // bigger visual celebration
+        confettiBurst(randInt(60, 120));
+        // scatter extra little bursts around
+        setTimeout(()=> confettiBurst(randInt(40, 80), { xFraction: 0.3, yFraction: 0.2 }), 160);
+        setTimeout(()=> confettiBurst(randInt(40, 80), { xFraction: 0.7, yFraction: 0.2 }), 320);
+        // lively graphic movement
+        for (let i=0;i<4;i++) setTimeout(randomGraphicTransition, i * 120);
+        this.animate([{transform:'scale(1)'},{transform:'scale(1.06)'},{transform:'scale(1)'}], {duration:360});
       });
     }
 
@@ -310,8 +392,19 @@
       }, 4200);
     })();
 
-    // small celebratory burst after load
-    window.addEventListener('load', ()=> setTimeout(()=> confettiBurst(20), 450));
+    // Start scheduled effects on load
+    window.addEventListener('load', ()=> {
+      // initial gentle burst
+      setTimeout(()=> confettiBurst(26), 450);
+      // begin random scheduled bursts and transitions
+      scheduleRandomEffects();
+    });
+
+    // Optional: stop scheduling when page hidden to save CPU
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) scheduled = false;
+      else { scheduled = true; scheduleRandomEffects(); }
+    });
   </script>
 </body>
 </html>
