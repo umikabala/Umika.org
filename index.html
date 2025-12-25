@@ -206,39 +206,53 @@
       document.getElementById('status').textContent = `Page ready for ${name || 'birthday person'}`;
     })();
 
-    // Confetti: simple burst
-    function confettiBurst(count=30){
+    // Confetti: use Web Animations API for reliable motion
+    function confettiBurst(count = 30) {
       const colors = ['#ff7aa2','#ffd166','#60a5fa','#34d399','#f97316'];
       const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
       const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
       const originX = Math.round(vw * 0.5);
-      const originY = Math.round(vh * 0.2);
+      const originY = Math.round(vh * 0.18);
 
-      for(let i=0;i<count;i++){
+      for (let i = 0; i < count; i++) {
         const el = document.createElement('div');
         el.className = 'confetti-piece';
-        const size = 6 + Math.random()*12;
+        const size = 6 + Math.random() * 12;
         el.style.width = el.style.height = size + 'px';
-        el.style.background = colors[Math.floor(Math.random()*colors.length)];
-        el.style.left = originX + (Math.random()*80 - 40) + 'px';
-        el.style.top = originY + (Math.random()*30 - 15) + 'px';
-        el.style.borderRadius = (Math.random()>0.6 ? '2px' : '50%');
+        el.style.background = colors[Math.floor(Math.random() * colors.length)];
+        // place near the top-center origin
+        const offsetX = (Math.random() * 120) - 60;
+        const offsetY = (Math.random() * 40) - 20;
+        el.style.left = (originX + offsetX) + 'px';
+        el.style.top = (originY + offsetY) + 'px';
+        el.style.borderRadius = (Math.random() > 0.6 ? '2px' : '50%');
+        el.style.opacity = '1';
+        el.style.pointerEvents = 'none';
         el.style.transform = `translate3d(0,0,0) rotate(${Math.random()*360}deg)`;
         document.body.appendChild(el);
 
-        const angle = (Math.random()*Math.PI) - Math.PI/2;
-        const speed = 140 + Math.random()*280;
-        const vx = Math.cos(angle) * speed;
-        const vy = Math.sin(angle) * speed;
-        const rotate = (Math.random()*720 - 360);
+        // compute a random flight vector (mostly downward + sideways for a pleasing burst)
+        const angle = (Math.random() * Math.PI) - Math.PI/3; // tilt slightly upwards-to-downwards
+        const distance = 160 + Math.random() * 300;
+        const dx = Math.cos(angle) * distance * (Math.random() > 0.5 ? 1 : -1);
+        const dy = Math.sin(angle) * distance + 150 + Math.random() * 120;
+        const rotate = (Math.random() * 720 - 360);
 
-        requestAnimationFrame(()=> {
-          el.style.transition = `transform 900ms cubic-bezier(.2,.8,.2,1), opacity 900ms linear`;
-          el.style.transform = `translate3d(${vx}px, ${vy}px, 0) rotate(${rotate}deg)`;
-          el.style.opacity = '0';
+        // animate using Web Animations API (more reliable than transitions)
+        const animation = el.animate([
+          { transform: `translate3d(0px, 0px, 0) rotate(0deg)`, opacity: 1 },
+          { transform: `translate3d(${dx}px, ${dy}px, 0) rotate(${rotate}deg)`, opacity: 0 }
+        ], {
+          duration: 900 + Math.random() * 300,
+          easing: 'cubic-bezier(.2,.8,.2,1)',
+          iterations: 1,
+          fill: 'forwards'
         });
 
-        setTimeout(()=> el.remove(), 1000);
+        // remove when finished
+        animation.onfinish = () => {
+          el.remove();
+        };
       }
     }
 
@@ -265,20 +279,28 @@
       }
     }
 
-    // Wire buttons
-    document.getElementById('btnCelebrate').addEventListener('click', function(){
-      confettiBurst(36);
-      this.animate([{transform:'scale(1)'},{transform:'scale(1.04)'},{transform:'scale(1)'}], {duration:320});
-    });
-    document.getElementById('btnChime').addEventListener('click', function(){
-      playChime();
-      this.setAttribute('aria-pressed','true');
-      setTimeout(()=> this.setAttribute('aria-pressed','false'), 900);
-    });
+    // Wire buttons (ensure elements exist)
+    const btnCelebrate = document.getElementById('btnCelebrate');
+    if (btnCelebrate) {
+      btnCelebrate.addEventListener('click', function(){
+        confettiBurst(36);
+        this.animate([{transform:'scale(1)'},{transform:'scale(1.04)'},{transform:'scale(1)'}], {duration:320});
+      });
+    }
+
+    const btnChime = document.getElementById('btnChime');
+    if (btnChime) {
+      btnChime.addEventListener('click', function(){
+        playChime();
+        this.setAttribute('aria-pressed','true');
+        setTimeout(()=> this.setAttribute('aria-pressed','false'), 900);
+      });
+    }
 
     // rotate through quotes gently
     (function rotateQuotes(){
       const qEls = Array.from(document.querySelectorAll('.quote'));
+      if(!qEls.length) return;
       let i=0;
       qEls.forEach((el, idx)=> el.style.display = idx===0 ? 'block' : 'none');
       setInterval(()=>{
