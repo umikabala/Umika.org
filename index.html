@@ -3,443 +3,315 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Happy 13th Birthday — December 25, 2025</title>
-  <meta name="description" content="Minimal, Christmas-themed one-page birthday for a girl turning 13 on December 25, 2025 — robots + art." />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <title>Happy 13th Birthday — Dec 25, 2025</title>
+  <meta name="description" content="Minimal Christmas-themed one-page birthday for a girl turning 13 — robots, art, confetti, and simple icons." />
   <style>
     :root{
-      --bg: #f7f8fb;
-      --card:#fff;
-      --muted:#6b7280;
-      --accent:#c026d3; /* soft magenta */
-      --accent2:#0ea5a4; /* teal */
-      --christmas:#e11d48; /* rose red */
-      --green:#16a34a;
-      --shadow: 0 8px 30px rgba(16,24,40,0.06);
-      --radius:14px;
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --text: #0b1220;
+      --muted: #6b7280;
+      --accent: #e11d48; /* festive accent */
+      --accent-soft: #ff7aa2;
+      --radius: 14px;
+      --shadow: 0 8px 30px rgba(11,18,32,0.06);
     }
     *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;background:var(--bg);color:#071133;}
+    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial; background:var(--bg); color:var(--text); -webkit-font-smoothing:antialiased;}
     .wrap{
       min-height:100vh;
       display:flex;
       align-items:center;
       justify-content:center;
-      padding:48px 20px;
+      padding:32px;
     }
+
+    /* card */
     .card{
       width:100%;
-      max-width:880px;
+      max-width:720px;
       background:var(--card);
       border-radius:var(--radius);
-      padding:36px;
+      padding:28px;
       box-shadow:var(--shadow);
-      display:grid;
-      grid-template-columns: 1fr 320px;
-      gap:28px;
-      align-items:start;
-      position:relative;
-      overflow:visible;
-    }
-
-    /* Minimal header */
-    .left h1{
-      margin:0;
-      font-size:clamp(22px,3.6vw,36px);
-      font-weight:700;
-      letter-spacing:-0.01em;
-      color:#071133;
-    }
-    .left p.lead{
-      margin:10px 0 18px 0;
-      color:var(--muted);
-      font-size:15px;
-    }
-
-    .meta{
       display:flex;
-      gap:12px;
-      align-items:center;
-      margin-top:6px;
-      flex-wrap:wrap;
-    }
-    .pill{
-      background:linear-gradient(180deg,#fff,#f4f6fb);
-      border:1px solid rgba(7,17,51,0.06);
-      padding:8px 12px;
-      border-radius:999px;
-      font-weight:600;
-      color:#071133;
-      font-size:13px;
-      display:inline-flex;
-      gap:8px;
-      align-items:center;
-    }
-    .muted{
-      color:var(--muted);
-      font-size:13px;
-    }
-
-    /* Visual area (robots + art) */
-    .scene{
-      margin-top:22px;
-      display:flex;
+      flex-direction:column;
       gap:18px;
       align-items:center;
-    }
-    .robot{
-      width:180px;
-      height:160px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      border-radius:12px;
-      background:linear-gradient(180deg,#fff,#fbfbff);
-      border:1px solid rgba(7,17,51,0.04);
-      box-shadow: 0 6px 18px rgba(7,17,51,0.04);
-      position:relative;
-      overflow:visible;
-      cursor:default;
-    }
-    .robot svg{ width:92px; height:92px; display:block; }
-    .art-stroke{
-      flex:1;
-      height:160px;
-      border-radius:12px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background:linear-gradient(135deg, rgba(224,29,78,0.06), rgba(14,165,164,0.04));
-      border:1px dashed rgba(7,17,51,0.03);
-      color:var(--muted);
-      font-weight:600;
-      font-size:14px;
-      padding:12px;
       text-align:center;
     }
 
-    /* Right column */
-    .right{
-      display:flex;
-      flex-direction:column;
-      gap:14px;
-    }
-    .card-small{
-      background:linear-gradient(180deg,#fff,#fbfbff);
-      border-radius:12px;
-      padding:14px;
-      border:1px solid rgba(7,17,51,0.04);
-      box-shadow: 0 6px 16px rgba(7,17,51,0.03);
-    }
-    .age{
-      font-size:36px;
-      font-weight:700;
-      color:var(--christmas);
+    h1{
       margin:6px 0 0 0;
+      font-size:28px;
+      line-height:1.05;
+      letter-spacing:-0.02em;
     }
-    .date{
+    p.lead{
+      margin:8px 0 0 0;
       color:var(--muted);
-      font-size:13px;
-      margin-top:6px;
+      font-size:14px;
     }
 
-    .controls{
+    /* icons row */
+    .icons{
+      display:flex;
+      gap:18px;
+      align-items:center;
+      margin-top:16px;
+    }
+    .icon{
+      width:84px;
+      height:84px;
+      border-radius:12px;
+      background:linear-gradient(180deg,#fff,#fbfbff);
+      border:1px solid rgba(11,18,32,0.04);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:12px;
+      box-shadow: 0 6px 16px rgba(11,18,32,0.03);
+    }
+    .icon svg{ width:48px; height:48px; display:block; }
+
+    /* small info row */
+    .info{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      margin-top:10px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .pill{
+      padding:8px 12px;
+      border-radius:999px;
+      background:linear-gradient(180deg,#fff,#fafafa);
+      border:1px solid rgba(11,18,32,0.04);
+      font-weight:600;
+    }
+
+    /* actions */
+    .actions{
       display:flex;
       gap:10px;
-      margin-top:10px;
+      margin-top:12px;
+      width:100%;
+      justify-content:center;
     }
-    .btn{
-      flex:1;
-      padding:10px 12px;
+    button{
+      padding:10px 14px;
       border-radius:10px;
-      border:1px solid rgba(7,17,51,0.06);
+      border:1px solid rgba(11,18,32,0.06);
       background:transparent;
-      font-weight:600;
-      color:#071133;
       cursor:pointer;
+      font-weight:700;
+      color:var(--text);
     }
-    .btn.primary{
-      background:linear-gradient(90deg,var(--christmas),#ff7aa2);
+    .primary{
+      background:linear-gradient(90deg,var(--accent),var(--accent-soft));
       color:white;
       border:none;
-      box-shadow:0 6px 20px rgba(225,29,72,0.12);
+      box-shadow:0 8px 24px rgba(225,29,72,0.12);
     }
 
-    footer.note{
-      margin-top:18px;
-      color:var(--muted);
-      font-size:13px;
-    }
-
-    /* small snow (minimal, purely decorative) */
-    .snowflake{
-      position:absolute;
-      color:#fff;
-      opacity:0.9;
-      font-size:12px;
-      will-change:transform,opacity;
+    /* confetti (particles appended to body) */
+    .confetti-piece{
+      position:fixed;
       pointer-events:none;
+      will-change:transform,opacity;
+      opacity:1;
+      z-index:9999;
     }
 
-    /* subtle robot bob */
-    @keyframes bob {
-      0%{ transform: translateY(0) }
-      50%{ transform: translateY(-6px) }
-      100%{ transform: translateY(0) }
+    /* small accessibility */
+    .sr-only{
+      position:absolute!important;
+      height:1px;width:1px;overflow:hidden;
+      clip:rect(1px,1px,1px,1px);white-space:nowrap;
     }
-    .robot { animation: bob 3s ease-in-out infinite; }
 
-    /* responsive */
-    @media (max-width:900px){
-      .card{ grid-template-columns:1fr; }
-      .scene{ flex-direction:row; gap:12px; }
-    }
     @media (max-width:520px){
-      .robot{ width:140px; height:120px; }
-      .art-stroke{ display:none; }
-      .age{ font-size:30px; }
+      .icons{ gap:12px; }
+      .icon{ width:68px; height:68px; padding:10px; }
+      h1{ font-size:22px; }
     }
-
-    /* accessible focus */
-    .sr{ position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden; }
   </style>
 </head>
 <body>
-  <!-- Personalize these values -->
+  <!-- personalisation block (edit to change name/date) -->
   <script>
-    // Change values here to personalize:
     window.BDAY = {
-      name: "Umika",                 // recipient name (set to empty string if you prefer a generic message)
+      name: "Umika",          // recipient name (leave "" for generic)
       age: 13,
-      dateISO: "2025-12-25",         // event date (YYYY-MM-DD)
-      description: "A cozy Christmas teen birthday — robots, art, and simple joy."
+      dateISO: "2025-12-25"   // event date (YYYY-MM-DD)
     };
   </script>
 
   <main class="wrap" role="main">
-    <section class="card" aria-labelledby="page-title">
-      <div class="left">
-        <h1 id="page-title">Happy 13th Birthday</h1>
-        <p class="lead" id="subtitle">Minimal Christmas celebration for a new teen — robots + art, warm and simple.</p>
-
-        <div class="meta" aria-hidden="false">
-          <div class="pill" id="toName">
-            <!-- name inserted by JS -->
-            <span id="nameLabel">To: Someone Special</span>
-          </div>
-          <div class="pill muted" aria-hidden="true">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="opacity:.9" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2v5" stroke="#6b7280" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M6 8v8" stroke="#6b7280" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M18 8v8" stroke="#6b7280" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-              <rect x="3" y="16" width="18" height="6" rx="2" stroke="#6b7280" stroke-width="1.6" fill="none"/>
-            </svg>
-            <span style="margin-left:6px">December 25, 2025</span>
-          </div>
-        </div>
-
-        <div class="scene" aria-hidden="false">
-          <div class="robot" role="img" aria-label="friendly robot">
-            <!-- minimal line robot -->
-            <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <g fill="none" stroke="#071133" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="26" y="36" width="68" height="56" rx="10" fill="none" />
-                <circle cx="44" cy="60" r="4" fill="#071133" stroke="none"/>
-                <circle cx="76" cy="60" r="4" fill="#071133" stroke="none"/>
-                <rect x="48" y="24" width="24" height="12" rx="4" stroke="#071133" fill="none"/>
-                <path d="M40 92h40" stroke="#071133"/>
-                <path d="M58 64c0 4-2 8-6 8" stroke="#071133" opacity=".15"/>
-              </g>
-              <!-- tiny festive bow -->
-              <g transform="translate(30,16)">
-                <circle cx="0" cy="0" r="4" fill="#e11d48" />
-                <path d="M4 -2 L10 -6 L8 -1 Z" fill="#ff7aa2" />
-              </g>
-            </svg>
-          </div>
-
-          <div class="art-stroke" aria-hidden="true">
-            A simple brush stroke of color — art for a new teen.
-          </div>
-
-          <div class="robot" role="img" aria-label="robot with gift">
-            <!-- minimal gift robot -->
-            <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <g fill="none" stroke="#071133" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="26" y="32" width="68" height="60" rx="10" fill="none" />
-                <rect x="44" y="44" width="32" height="20" rx="3" fill="#ffefef" stroke="none" opacity="0.9"/>
-                <path d="M44 54h32" stroke="#071133"/>
-                <circle cx="60" cy="56" r="3.5" fill="#e11d48" stroke="none"/>
-                <rect x="50" y="88" width="20" height="6" rx="3" fill="#071133" stroke="none"/>
-              </g>
-            </svg>
-          </div>
-        </div>
-
-        <p class="note" style="margin-top:20px;">Keep it simple: warm typography, subtle festive accents, and playful robots that hint at art and imagination.</p>
-
+    <article class="card" aria-labelledby="title">
+      <div>
+        <div style="color:var(--muted); font-size:13px; font-weight:700" id="subline">Merry Christmas • Teen Birthday</div>
+        <h1 id="title">Happy 13th Birthday</h1>
+        <p class="lead" id="subtitle">Warm wishes for a joyful year of creativity and play.</p>
       </div>
 
-      <aside class="right" aria-labelledby="sideTitle">
-        <div class="card-small" id="sideTop">
-          <div style="display:flex;justify-content:space-between;align-items:center">
-            <div>
-              <div style="font-size:13px;color:var(--muted)">Turning</div>
-              <div class="age" id="ageNum">13</div>
-            </div>
-            <div style="text-align:right">
-              <div style="font-size:13px;color:var(--muted)">When</div>
-              <div class="date" id="dateLabel">Dec 25, 2025</div>
-            </div>
-          </div>
-
-          <div class="controls" style="margin-top:12px">
-            <button class="btn" id="btnChime" aria-pressed="false">Play chime</button>
-            <button class="btn primary" id="btnConfetti">Celebrate</button>
-          </div>
+      <div class="icons" aria-hidden="false" role="group" aria-label="Icons: robot, art, gift">
+        <!-- robot icon -->
+        <div class="icon" title="Robot">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="14" y="18" width="36" height="26" rx="4" fill="#fff" stroke="#0b1220" stroke-width="1.6"/>
+            <rect x="24" y="10" width="16" height="8" rx="2" fill="#fff" stroke="#0b1220" stroke-width="1.6"/>
+            <circle cx="26" cy="30" r="3" fill="#0b1220"/>
+            <circle cx="38" cy="30" r="3" fill="#0b1220"/>
+            <rect x="24" y="42" width="16" height="4" rx="2" fill="#0b1220"/>
+          </svg>
         </div>
 
-        <div class="card-small" id="cardPersonal">
-          <div style="font-size:13px;color:var(--muted);margin-bottom:8px">Message</div>
-          <div style="font-weight:600;color:#071133" id="personalMessage">Wishing a joyful first year as a teen — merry birthday and happy holidays.</div>
+        <!-- paint palette icon -->
+        <div class="icon" title="Art / Paint">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M16 36c0-11.046 8.954-20 20-20 6.627 0 12 5.373 12 12 0 11.046-8.954 20-20 20-2.21 0-4-1.79-4-4 0-2.21 1.79-4 4-4h0c0-2.21-1.79-4-4-4-2.21 0-4 1.79-4 4z" fill="#fff" stroke="#0b1220" stroke-width="1.6"/>
+            <circle cx="26" cy="28" r="2.8" fill="#ff7aa2"/>
+            <circle cx="34" cy="22" r="2.8" fill="#ffd166"/>
+            <circle cx="38" cy="34" r="2.8" fill="#60a5fa"/>
+          </svg>
         </div>
 
-        <div class="card-small" style="text-align:center;font-size:13px;color:var(--muted)">
-          <div style="font-weight:700;color:var(--accent)">Minimal • Festive • Playful</div>
-          <div style="margin-top:8px">Designed for a calm, warm celebration — December 25, 2025</div>
+        <!-- gift icon -->
+        <div class="icon" title="Gift">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="12" y="22" width="40" height="26" rx="3" fill="#fff" stroke="#0b1220" stroke-width="1.6"/>
+            <path d="M32 22v-6" stroke="#0b1220" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M32 16c-3.5 0-8 3-8 6.5S29 30 32 30s8-3 8-6.5S35.5 16 32 16z" fill="#ff7aa2" stroke="#0b1220" stroke-width="1.2"/>
+            <rect x="28" y="34" width="8" height="4" rx="1.5" fill="#0b1220"/>
+          </svg>
         </div>
-      </aside>
+      </div>
 
-      <!-- decorative snow elements (pure CSS/JS placed) -->
-    </section>
+      <div class="info" role="status" aria-live="polite">
+        <div class="pill" id="toName">To: Someone</div>
+        <div style="color:var(--muted)">•</div>
+        <div style="font-size:13px;color:var(--muted)" id="dateLabel">Dec 25, 2025</div>
+      </div>
+
+      <div class="actions" role="toolbar" aria-label="Actions">
+        <button id="btnChime" aria-pressed="false">Play chime</button>
+        <button id="btnCelebrate" class="primary">Celebrate</button>
+      </div>
+
+      <div style="margin-top:6px; color:var(--muted); font-size:13px;">
+        <span id="smallNote">Simple • Calm • Festive</span>
+      </div>
+
+      <div class="sr-only" id="ariaStatus">Page loaded</div>
+    </article>
   </main>
 
-  <div class="sr" id="ariaStatus" aria-live="polite">Birthday page ready</div>
-
   <script>
-    // apply personalization
+    // Apply personalization
     (function(){
       const b = window.BDAY || {};
-      const name = b.name || "";
+      const name = (b.name !== undefined) ? b.name : "";
       const age = b.age || 13;
       const dateISO = b.dateISO || "2025-12-25";
-      const description = b.description || "";
 
-      document.getElementById('nameLabel').textContent = name ? `To: ${name}` : 'To: Someone Special';
-      document.getElementById('ageNum').textContent = age;
-      // format date simply:
+      document.getElementById('toName').textContent = name ? `To: ${name}` : 'To: Someone';
+      // title includes age:
+      const title = document.getElementById('title');
+      title.textContent = name ? `Happy ${age}th Birthday` : `Happy ${age}th Birthday`;
+      // pretty date:
       const d = new Date(dateISO + 'T00:00:00');
-      const opts = { year: 'numeric', month: 'long', day: 'numeric' };
-      document.getElementById('dateLabel').textContent = isNaN(d) ? 'December 25, 2025' : d.toLocaleDateString(undefined, opts);
-      if(description) document.getElementById('subtitle').textContent = description;
-      const pm = document.getElementById('personalMessage');
-      pm.textContent = name ? `Happy 13th, ${name}! Wishing you a bright and creative year.` : pm.textContent;
-
+      const opts = { year: 'numeric', month: 'short', day: 'numeric' };
+      document.getElementById('dateLabel').textContent = isNaN(d) ? 'Dec 25, 2025' : d.toLocaleDateString(undefined, opts);
       document.getElementById('ariaStatus').textContent = `Page ready for ${name || 'birthday person'}`;
     })();
 
-    // small confetti (minimal)
-    function confettiBurst(){
-      const colors = ['#ff7aa2','#f97316','#facc15','#10b981','#60a5fa'];
-      for(let i=0;i<36;i++){
+    // Minimal confetti: creates a short burst of colored pieces and animates them simply
+    function confettiBurst(xFraction=0.5, yFraction=0.25, count=28){
+      const colors = ['#ff7aa2','#ffd166','#60a5fa','#34d399','#f97316'];
+      const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+      const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+      const originX = Math.round(vw * xFraction);
+      const originY = Math.round(vh * yFraction);
+
+      for(let i=0;i<count;i++){
         const el = document.createElement('div');
-        el.style.position='fixed';
-        el.style.left = (40 + Math.random()*20) + 'vw';
-        el.style.top = (10 + Math.random()*10) + 'vh';
+        el.className = 'confetti-piece';
         const size = 6 + Math.random()*10;
         el.style.width = el.style.height = size + 'px';
         el.style.background = colors[Math.floor(Math.random()*colors.length)];
+        el.style.left = originX + (Math.random()*40 - 20) + 'px';
+        el.style.top = originY + (Math.random()*30 - 15) + 'px';
         el.style.borderRadius = (Math.random()>0.5 ? '2px' : '50%');
-        el.style.opacity = 1;
-        el.style.pointerEvents='none';
-        el.style.transform = `translateY(0) translateX(0) rotate(${Math.random()*360}deg)`;
-        el.style.transition = `transform 900ms cubic-bezier(.2,.8,.2,1), opacity 900ms linear`;
+        el.style.transform = `translate3d(0,0,0) rotate(${Math.random()*360}deg)`;
+        el.style.opacity = '1';
         document.body.appendChild(el);
-        requestAnimationFrame(()=>{
-          el.style.transform = `translateY(${120 + Math.random()*60}vh) translateX(${(-80 + Math.random()*160)}vw) rotate(${Math.random()*720}deg)`;
-          el.style.opacity = 0;
+
+        // animate: compute random velocity
+        const angle = (Math.random()*Math.PI) - Math.PI/2; // mostly upward
+        const speed = 180 + Math.random()*260;
+        const vx = Math.cos(angle) * speed;
+        const vy = Math.sin(angle) * speed;
+        const rotate = (Math.random()*720 - 360);
+
+        // use rAF to set final transform (transition)
+        requestAnimationFrame(()=> {
+          el.style.transition = `transform 900ms cubic-bezier(.2,.8,.2,1), opacity 900ms linear`;
+          el.style.transform = `translate3d(${vx}px, ${vy}px, 0) rotate(${rotate}deg)`;
+          el.style.opacity = '0';
         });
-        setTimeout(()=> el.remove(), 1100);
+
+        // remove after animation
+        setTimeout(()=> {
+          el.remove();
+        }, 1000);
       }
     }
 
-    // small pleasant chime using Web Audio (short)
-    function makeChime(){
+    // Minimal chime (three tones)
+    function playChime(){
       try{
         const ac = new (window.AudioContext || window.webkitAudioContext)();
-        return function(){
-          const now = ac.currentTime;
-          const freqs = [523.25, 659.25, 783.99]; // C5, E5, G5
-          freqs.forEach((f,i)=>{
-            const o = ac.createOscillator();
-            const g = ac.createGain();
-            o.type = 'sine';
-            o.frequency.value = f;
-            g.gain.value = 0.001;
-            g.gain.exponentialRampToValueAtTime(0.12, now + 0.02 + i*0.09);
-            g.gain.exponentialRampToValueAtTime(0.0001, now + 0.6 + i*0.09);
-            o.connect(g); g.connect(ac.destination);
-            o.start(now + i*0.05);
-            o.stop(now + 0.7 + i*0.05);
-          });
-        };
+        const now = ac.currentTime;
+        const freqs = [523.25, 659.25, 783.99]; // C5 E5 G5
+        freqs.forEach((f,i)=>{
+          const o = ac.createOscillator();
+          const g = ac.createGain();
+          o.type = 'sine';
+          o.frequency.value = f;
+          g.gain.value = 0.0001;
+          g.gain.exponentialRampToValueAtTime(0.12, now + 0.02 + i*0.08);
+          g.gain.exponentialRampToValueAtTime(0.0001, now + 0.5 + i*0.08);
+          o.connect(g); g.connect(ac.destination);
+          o.start(now + i*0.04);
+          o.stop(now + 0.7 + i*0.04);
+        });
       }catch(e){
-        return function(){};
+        // ignore if audio not available
       }
     }
-    const playChime = makeChime();
 
-    document.getElementById('btnConfetti').addEventListener('click', function(){
-      confettiBurst();
-      this.animate([{transform:'scale(1)'},{transform:'scale(1.04)'},{transform:'scale(1)'}], {duration:350});
+    // Wire buttons
+    document.getElementById('btnCelebrate').addEventListener('click', function(){
+      confettiBurst(0.5, 0.22, 30);
+      this.animate([{transform:'scale(1)'},{transform:'scale(1.04)'},{transform:'scale(1)'}], {duration:260});
     });
-
     document.getElementById('btnChime').addEventListener('click', function(){
       playChime();
       this.setAttribute('aria-pressed','true');
-      setTimeout(()=> this.setAttribute('aria-pressed','false'),900);
+      setTimeout(()=> this.setAttribute('aria-pressed','false'), 900);
     });
 
-    // subtle falling snow: create a few small snowflakes
-    (function startSnow(){
-      const count = Math.max(8, Math.min(18, Math.floor(window.innerWidth/140)));
-      for(let i=0;i<count;i++){
-        const s = document.createElement('div');
-        s.className = 'snowflake';
-        s.textContent = '❄';
-        s.style.left = (Math.random()*100) + 'vw';
-        s.style.top = (-10 - Math.random()*10) + 'vh';
-        s.style.fontSize = (8 + Math.random()*18) + 'px';
-        s.style.opacity = 0.7 + Math.random()*0.3;
-        const dur = 10 + Math.random()*10;
-        s.style.transition = `transform ${dur}s linear, opacity ${dur}s linear`;
-        document.body.appendChild(s);
-        // animate
-        requestAnimationFrame(()=> {
-          s.style.transform = `translateY(${110 + Math.random()*30}vh) translateX(${(-20 + Math.random()*40)}vw)`;
-          s.style.opacity = 0;
-        });
-        setTimeout(()=> s.remove(), (dur+0.5)*1000);
-        // repeat a few times
-        setInterval(()=>{
-          const s2 = s.cloneNode(true);
-          s2.style.left = (Math.random()*100) + 'vw';
-          s2.style.top = (-10 - Math.random()*10) + 'vh';
-          s2.style.opacity = 0.7 + Math.random()*0.3;
-          document.body.appendChild(s2);
-          requestAnimationFrame(()=> {
-            s2.style.transform = `translateY(${110 + Math.random()*30}vh) translateX(${(-20 + Math.random()*40)}vw)`;
-            s2.style.opacity = 0;
-          });
-          setTimeout(()=> s2.remove(), (dur+0.5)*1000);
-        }, 4600 + Math.random()*3200);
-      }
-    })();
-
-    // keyboard shortcuts: C => confetti, P => chime
+    // keyboard shortcuts (optional, unobtrusive)
     document.addEventListener('keydown', (e)=>{
       if(e.key === 'c' || e.key === 'C') confettiBurst();
       if(e.key === 'p' || e.key === 'P') playChime();
+    });
+
+    // small celebratory burst on page load (gentle)
+    window.addEventListener('load', ()=> {
+      setTimeout(()=> confettiBurst(0.5, 0.25, 20), 450);
     });
   </script>
 </body>
