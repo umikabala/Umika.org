@@ -1,0 +1,613 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Happy 13th Birthday!</title>
+  <meta name="description" content="A cheerful one-page birthday site for a girl turning 13 on Christmas Day — robots, art, and festive fun." />
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg1:#071a2f;
+      --bg2:#07192a;
+      --accent:#ff6fb5;
+      --accent2:#7de1ff;
+      --card:#ffffffaa;
+      --glass: rgba(255,255,255,0.06);
+      --robot:#bfe0ff;
+      --paint1:#ff8a65;
+      --paint2:#ffd166;
+      --paint3:#8adf7d;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;}
+    body{
+      background: radial-gradient(1200px 600px at 10% 10%, #06203a 0%, transparent 15%),
+                  radial-gradient(800px 400px at 90% 90%, rgba(255,140,180,0.06) 0%, transparent 20%),
+                  linear-gradient(160deg,var(--bg1),var(--bg2));
+      color:#fff;
+      overflow-x:hidden;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:32px;
+    }
+
+    .container{
+      max-width:1100px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns: 1fr 420px;
+      gap:24px;
+      align-items:stretch;
+    }
+
+    /* header card */
+    .hero{
+      background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      border:1px solid rgba(255,255,255,0.06);
+      border-radius:18px;
+      padding:28px;
+      min-height:420px;
+      position:relative;
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+
+    .title{
+      display:flex;
+      align-items:flex-start;
+      gap:18px;
+    }
+    .greeting{
+      font-size: clamp(22px, 3.6vw, 40px);
+      line-height:1.02;
+      font-weight:700;
+      margin:0;
+      letter-spacing:-0.02em;
+      text-shadow: 0 6px 20px rgba(0,0,0,0.45);
+      color:linear-gradient(90deg,#fff,#ffd1eb);
+    }
+    .subtitle{
+      margin:8px 0 0 0;
+      font-weight:500;
+      opacity:0.95;
+      color:#fff;
+      font-size:clamp(14px,1.6vw,18px);
+    }
+
+    .scene{
+      position:relative;
+      margin-top:12px;
+      display:flex;
+      gap:16px;
+      align-items:flex-end;
+    }
+
+    /* robot panels */
+    .robot-card{
+      background:var(--glass);
+      border-radius:14px;
+      padding:12px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      width:220px;
+      backdrop-filter: blur(6px);
+      border:1px solid rgba(255,255,255,0.04);
+    }
+    .robot-svg{ width:84px; height:84px; flex:0 0 84px; }
+    .robot-text{ font-size:14px; margin:0; color:#fff; }
+
+    /* right column */
+    .side{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:16px;
+      padding:18px;
+      border:1px solid rgba(255,255,255,0.04);
+      height:100%;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    .count{
+      font-size:48px;
+      font-weight:700;
+      color:var(--accent);
+      text-align:center;
+      margin:6px 0;
+      text-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    }
+    .when{
+      text-align:center;
+      font-weight:500;
+      color:#fff;
+      opacity:0.9;
+    }
+    .paint-toolbar{
+      display:flex;
+      gap:8px;
+      justify-content:center;
+      margin-top:6px;
+    }
+    .paint-swatch{
+      width:42px;
+      height:42px;
+      border-radius:10px;
+      box-shadow:0 6px 16px rgba(0,0,0,0.3);
+      border:2px solid rgba(255,255,255,0.06);
+      cursor:pointer;
+      transition:transform .18s ease;
+    }
+    .paint-swatch:active{ transform:scale(.96) }
+
+    .actions{
+      display:flex;
+      gap:8px;
+      margin-top:auto;
+      align-items:center;
+    }
+    .btn{
+      flex:1;
+      padding:10px 12px;
+      border-radius:10px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      border:1px solid rgba(255,255,255,0.06);
+      color:#fff;
+      font-weight:600;
+      cursor:pointer;
+      text-align:center;
+    }
+    .btn.secondary{
+      background:transparent;
+      border:1px dashed rgba(255,255,255,0.08);
+      color:#fff;
+    }
+
+    /* footer row - art gallery */
+    .gallery{
+      margin-top:18px;
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .art-card{
+      flex:1 1 calc(25% - 12px);
+      min-width:140px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:12px;
+      padding:10px;
+      text-align:center;
+      border:1px solid rgba(255,255,255,0.03);
+    }
+    .art-thumb{ width:100%; height:84px; border-radius:8px; background:linear-gradient(135deg,var(--paint1),var(--paint2)); display:flex; align-items:center; justify-content:center; color:#111; font-weight:700; font-size:20px; }
+
+    /* confetti canvas */
+    #confetti {
+      position:fixed;
+      left:0; top:0; width:100%; height:100%;
+      pointer-events:none;
+    }
+
+    /* snow */
+    .snowflake{
+      position:fixed;
+      top:-10px;
+      left:0;
+      color:#fff;
+      font-size:14px;
+      opacity:0.9;
+      transform:translateY(-100vh);
+      animation:fall linear infinite;
+    }
+    @keyframes fall{
+      to { transform: translateY(120vh); }
+    }
+
+    /* responsive */
+    @media (max-width:980px){
+      .container{grid-template-columns:1fr; padding-bottom:56px;}
+      .robot-card{ width:160px }
+    }
+    @media (max-width:520px){
+      .robot-card{ display:none }
+      .greeting{ font-size:28px }
+    }
+
+    /* little sparkle */
+    .sparkle{
+      position:absolute;
+      width:12px; height:12px;
+      border-radius:50%;
+      box-shadow:0 0 24px 8px rgba(255,255,255,0.06);
+      animation:pop 2s infinite;
+      opacity:.9;
+      mix-blend-mode:screen;
+      filter:drop-shadow(0 6px 20px rgba(0,0,0,0.5));
+    }
+    @keyframes pop{
+      0%{ transform:scale(.6) rotate(0); opacity:0.4; }
+      50%{ transform:scale(1.3) rotate(45deg); opacity:1; }
+      100%{ transform:scale(.6) rotate(90deg); opacity:0.4; }
+    }
+
+    /* small accessibility note */
+    .sr-only{
+      position:absolute!important;
+      height:1px;width:1px;overflow:hidden;
+      clip:rect(1px,1px,1px,1px);white-space:nowrap;
+    }
+  </style>
+</head>
+<body>
+  <!-- Personalize these two values -->
+  <script>
+    // Edit these variables to personalize the page:
+    window.BDAY = {
+      name: "Happy 13th Birthday!",
+      displayName: "You", // shown in smaller text under the robots, or change to a name like "Umika"
+      dateText: "Christmas Day — 25 December",
+      birthdayYear: new Date().getFullYear(),
+      day: 25,
+      month: 12,
+      age: 13
+    };
+  </script>
+
+  <canvas id="confetti" aria-hidden="true"></canvas>
+
+  <div class="container" role="main">
+    <section class="hero" aria-labelledby="greeting">
+      <div>
+        <div class="title">
+          <div style="flex:1">
+            <h1 id="greeting" class="greeting">Merry Christmas &amp; Happy 13th Birthday!</h1>
+            <p class="subtitle" id="subtitle">Wishing you a day full of robots, paints, laughter and sparkles.</p>
+          </div>
+
+          <!-- floating robot SVG -->
+          <div style="width:140px; text-align:right;">
+            <svg class="robot-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <defs>
+                <linearGradient id="rgrad" x1="0" x2="1">
+                  <stop offset="0" stop-color="#9fd6ff"/>
+                  <stop offset="1" stop-color="#bfb8ff"/>
+                </linearGradient>
+              </defs>
+              <rect x="8" y="28" rx="12" ry="12" width="104" height="70" fill="url(#rgrad)"/>
+              <rect x="36" y="12" width="48" height="20" rx="8" fill="#fff" opacity="0.12"/>
+              <circle cx="40" cy="50" r="6" fill="#1b2f47"/>
+              <circle cx="80" cy="50" r="6" fill="#1b2f47"/>
+              <rect x="30" y="72" width="60" height="8" rx="4" fill="#ffd1eb" opacity="0.6"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="scene" aria-hidden="false">
+          <div class="robot-card" role="button" tabindex="0" id="robotPaint" aria-label="Robot artist — click to animate and play a chime">
+            <!-- robot holding paintbrush -->
+            <svg class="robot-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Paint robot">
+              <rect x="18" y="28" width="84" height="64" rx="10" fill="#cfefff"/>
+              <circle cx="40" cy="56" r="6" fill="#123149"/>
+              <circle cx="80" cy="56" r="6" fill="#123149"/>
+              <rect x="30" y="88" width="60" height="6" rx="3" fill="#1b2f47" />
+              <!-- paintbrush -->
+              <g id="brush" transform="translate(68,34)">
+                <rect x="0" y="28" width="6" height="28" rx="2" fill="#6a4c9f"/>
+                <rect x="-6" y="20" width="18" height="12" rx="3" fill="#333"/>
+                <rect x="-4" y="8" width="14" height="16" rx="3" fill="#ff8a65"/>
+              </g>
+            </svg>
+            <div class="robot-text">
+              <div style="font-weight:700">Arty-Bot</div>
+              <div style="font-size:12px; opacity:.9">Makes colourful wishes</div>
+            </div>
+          </div>
+
+          <div class="robot-card" id="robotGift" role="button" tabindex="0" aria-label="Robot with gift — click to open">
+            <!-- robot with gift -->
+            <svg class="robot-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Gift robot">
+              <rect x="18" y="26" width="84" height="66" rx="12" fill="#e3f7ff"/>
+              <circle cx="40" cy="56" r="6" fill="#123149"/>
+              <circle cx="80" cy="56" r="6" fill="#123149"/>
+              <rect x="36" y="84" width="48" height="8" rx="4" fill="#ffefcc"/>
+              <!-- gift -->
+              <g id="gift" transform="translate(12,10)">
+                <rect x="50" y="64" width="36" height="28" rx="4" fill="#ff8a65"/>
+                <rect x="66" y="64" width="6" height="28" fill="#7d3b8d"/>
+                <path d="M68 64 Q72 56 76 64" fill="#ffd166"/>
+              </g>
+            </svg>
+            <div class="robot-text">
+              <div style="font-weight:700">Gift-Bot</div>
+              <div style="font-size:12px; opacity:.9">Has a holiday surprise</div>
+            </div>
+          </div>
+
+          <!-- big decorative cupcake/balloon with 13 -->
+          <div style="margin-left:14px; text-align:center">
+            <div style="width:120px; height:120px; border-radius:18px; background:linear-gradient(135deg,#ffd1eb,#fff1a8);
+                        display:flex; align-items:center; justify-content:center; color:#1b2f47; font-weight:900; font-size:42px; box-shadow:0 10px 30px rgba(0,0,0,0.35)">
+              13
+            </div>
+            <div style="font-size:13px; margin-top:8px; opacity:.95;">years young</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- small art gallery row -->
+      <div class="gallery" aria-hidden="true">
+        <div class="art-card"><div class="art-thumb" style="background:linear-gradient(135deg,var(--paint1),var(--paint3))">Art 1</div></div>
+        <div class="art-card"><div class="art-thumb" style="background:linear-gradient(135deg,var(--paint2),var(--paint1))">Art 2</div></div>
+        <div class="art-card"><div class="art-thumb" style="background:linear-gradient(135deg,var(--paint3),var(--paint2))">Art 3</div></div>
+        <div class="art-card"><div class="art-thumb" style="background:linear-gradient(135deg,#ffd1eb,#ffefcc)">Art 4</div></div>
+      </div>
+    </section>
+
+    <aside class="side" aria-labelledby="sideTitle">
+      <h2 id="sideTitle" style="margin:0;font-size:20px">Celebrate</h2>
+
+      <div style="text-align:center">
+        <div class="count" id="ageCount">13</div>
+        <div class="when" id="whenText">Christmas Day — Dec 25</div>
+      </div>
+
+      <div class="paint-toolbar" role="toolbar" aria-label="Choose paint color">
+        <div class="paint-swatch" title="Candy" style="background:linear-gradient(135deg,#ff8a65,#ff5eaa)" data-color="#ff8a65"></div>
+        <div class="paint-swatch" title="Sunshine" style="background:linear-gradient(135deg,#ffd166,#ffefcc)" data-color="#ffd166"></div>
+        <div class="paint-swatch" title="Mint" style="background:linear-gradient(135deg,#8adf7d,#5de290)" data-color="#8adf7d"></div>
+        <div class="paint-swatch" title="Sky" style="background:linear-gradient(135deg,#7de1ff,#bfe0ff)" data-color="#7de1ff"></div>
+      </div>
+
+      <p style="font-size:13px; opacity:.95; margin:6px 0 0 0">Click a robot to play a cheerful chime and animate. Tap paint swatches to splash color across the page for fun art effects.</p>
+
+      <div class="actions">
+        <button class="btn" id="playChime" aria-pressed="false">Play Chime</button>
+        <button class="btn secondary" id="toggleSnow" aria-pressed="false">Toggle Snow</button>
+      </div>
+
+      <div style="font-size:12px; opacity:.85; margin-top:12px">
+        <strong>Personalize:</strong>
+        <ul style="padding-left:18px; margin:8px 0">
+          <li>Edit <code>window.BDAY</code> at the top to change the name/date.</li>
+          <li>Replace the SVGs with photos or illustrations if you like.</li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+
+  <div class="sr-only" id="ariaStatus" aria-live="polite">Birthday page loaded</div>
+
+  <script>
+    // Basic personalization
+    (function(){
+      const name = window.BDAY && window.BDAY.name ? window.BDAY.name : "Happy 13th Birthday!";
+      const displayName = window.BDAY && window.BDAY.displayName ? window.BDAY.displayName : "You";
+      const dateText = window.BDAY && window.BDAY.dateText ? window.BDAY.dateText : "Christmas Day — Dec 25";
+      document.getElementById('greeting').textContent = name;
+      document.getElementById('subtitle').textContent = `Celebrating ${displayName} — robots, art, and holiday magic!`;
+      document.getElementById('whenText').textContent = dateText;
+      document.getElementById('ageCount').textContent = window.BDAY && window.BDAY.age ? window.BDAY.age : "13";
+      document.getElementById('ariaStatus').textContent = name + " page loaded";
+    })();
+
+    // Confetti
+    (function(){
+      const canvas = document.getElementById('confetti');
+      const ctx = canvas.getContext('2d');
+      let W = canvas.width = innerWidth;
+      let H = canvas.height = innerHeight;
+      const pieces = [];
+      const colors = ["#ff8a65","#ffd166","#8adf7d","#7de1ff","#ff5ea3","#bfe0ff"];
+
+      function rand(min,max){ return Math.random()*(max-min)+min; }
+      function makePiece(){
+        return {
+          x: rand(0,W), y: rand(-H,0),
+          w: rand(6,12), h: rand(8,16),
+          vx: rand(-0.4,0.9), vy: rand(1,2.8),
+          color: colors[Math.floor(rand(0,colors.length))]
+        };
+      }
+      for(let i=0;i<80;i++) pieces.push(makePiece());
+      function resize(){ W=canvas.width=innerWidth; H=canvas.height=innerHeight; }
+      addEventListener('resize', resize);
+
+      let running = true;
+      function loop(){
+        if(!running){ requestAnimationFrame(loop); return }
+        ctx.clearRect(0,0,W,H);
+        pieces.forEach(p=>{
+          p.x += p.vx; p.y += p.vy;
+          p.vy += 0.01;
+          ctx.fillStyle = p.color;
+          ctx.save();
+          ctx.translate(p.x,p.y);
+          ctx.rotate((p.x+p.y)/50);
+          ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);
+          ctx.restore();
+          if(p.y>H+50){ Object.assign(p, makePiece(), {y:-10}); }
+        });
+        requestAnimationFrame(loop);
+      }
+      loop();
+
+      // controlled via playChime to burst confetti
+      window.confettiBurst = function(){
+        for(let i=0;i<40;i++){ pieces.push(makePiece()); }
+      };
+      window.confettiPause = function(){ running = false; };
+      window.confettiResume = function(){ running = true; };
+    })();
+
+    // Snow generator (simple)
+    const snowContainer = [];
+    let snowOn = false;
+    function toggleSnow(){
+      snowOn = !snowOn;
+      document.getElementById('toggleSnow').setAttribute('aria-pressed', String(snowOn));
+      if(snowOn) startSnow(); else stopSnow();
+    }
+    function startSnow(){
+      // create some snowflakes
+      for(let i=0;i<60;i++){
+        const el = document.createElement('div');
+        el.className = 'snowflake';
+        el.style.left = Math.random()*100 + 'vw';
+        el.style.fontSize = (8 + Math.random()*20) + 'px';
+        el.style.animationDuration = (8 + Math.random()*14) + 's';
+        el.style.opacity = 0.6 + Math.random()*0.6;
+        el.textContent = '❄';
+        document.body.appendChild(el);
+        snowContainer.push(el);
+      }
+    }
+    function stopSnow(){
+      snowContainer.forEach(el=>el.remove());
+      snowContainer.length = 0;
+    }
+
+    document.getElementById('toggleSnow').addEventListener('click', toggleSnow);
+
+    // Paint splash effect
+    const paints = document.querySelectorAll('.paint-swatch');
+    paints.forEach(s => s.addEventListener('click', (e)=>{
+      const color = e.currentTarget.dataset.color || '#ff8a65';
+      splash(color);
+    }));
+    function splash(color){
+      for(let i=0;i<12;i++){
+        const s = document.createElement('div');
+        s.style.position='fixed';
+        const size = 24 + Math.random()*80;
+        s.style.width = s.style.height = size + 'px';
+        s.style.borderRadius = (10 + Math.random()*50) + 'px';
+        s.style.left = (20 + Math.random()*60) + 'vw';
+        s.style.top = (10 + Math.random()*60) + 'vh';
+        s.style.background = color;
+        s.style.opacity = 0.9;
+        s.style.transform = 'rotate('+(Math.random()*160)+'deg)';
+        s.style.pointerEvents='none';
+        s.style.transition = 'transform 1.6s ease-out, opacity 1.6s ease-out';
+        document.body.appendChild(s);
+        requestAnimationFrame(()=> {
+          s.style.transform = 'translateY(120vh) rotate(60deg) scale(.6)';
+          s.style.opacity = 0;
+        });
+        setTimeout(()=> s.remove(), 1700);
+      }
+    }
+
+    // Robot click interactions + chime using WebAudio
+    function makeChime(){
+      try{
+        const ac = new (window.AudioContext || window.webkitAudioContext)();
+        return function(notes, when=0.0){
+          const now = ac.currentTime + when;
+          notes.forEach((n,i)=>{
+            const osc = ac.createOscillator();
+            const g = ac.createGain();
+            osc.type = 'sine';
+            const freq = 440 * Math.pow(2, (n-69)/12); // midi-like mapping
+            osc.frequency.value = freq;
+            g.gain.value = 0.0001;
+            g.gain.exponentialRampToValueAtTime(0.12, now + i*0.12);
+            g.gain.exponentialRampToValueAtTime(0.0001, now + i*0.12 + 1.2);
+            osc.connect(g); g.connect(ac.destination);
+            osc.start(now + i*0.12);
+            osc.stop(now + i*0.12 + 1.4);
+          });
+        };
+      }catch(e){
+        return function(){};
+      }
+    }
+    const playNotes = makeChime();
+
+    function animateBrush(){
+      const brush = document.querySelector('#brush');
+      if(!brush) return;
+      brush.animate([
+        { transform: 'translateY(0) rotate(0)'},
+        { transform: 'translateY(-8px) rotate(-10deg)'},
+        { transform: 'translateY(0) rotate(0)'}
+      ], { duration: 700, iterations: 3 });
+      // splash subtle color
+      splash('#ff8a65');
+    }
+
+    function animateGift(){
+      const gift = document.querySelector('#gift');
+      if(!gift) return;
+      gift.animate([
+        { transform: 'translateY(0) rotate(0)' },
+        { transform: 'translateY(-12px) rotate(-6deg)' },
+        { transform: 'translateY(0) rotate(0)' }
+      ], { duration: 800, iterations: 2 });
+      // more confetti
+      if(window.confettiBurst) window.confettiBurst();
+    }
+
+    // connect the robot card buttons
+    const robotPaint = document.getElementById('robotPaint');
+    const robotGift = document.getElementById('robotGift');
+
+    [robotPaint, robotGift].forEach(el=>{
+      el.addEventListener('keydown', (e)=>{ if(e.key === 'Enter' || e.key === ' ') el.click(); });
+      el.style.cursor = 'pointer';
+    });
+
+    robotPaint.addEventListener('click', ()=>{
+      animateBrush();
+      playNotes([72,76,79,84]); // pleasant arpeggio
+      window.confettiBurst();
+    });
+
+    robotGift.addEventListener('click', ()=>{
+      animateGift();
+      playNotes([60,64,67,72]); // warm chord progression
+      window.confettiBurst();
+    });
+
+    // Play chime button toggles a short melody and confetti
+    document.getElementById('playChime').addEventListener('click', function(){
+      playNotes([60,64,67,72,76,79]);
+      this.setAttribute('aria-pressed','true');
+      this.animate([{transform:'scale(1)'},{transform:'scale(1.04)'},{transform:'scale(1)'}], {duration:420});
+      window.confettiBurst();
+      setTimeout(()=> this.setAttribute('aria-pressed','false'), 1400);
+    });
+
+    // initial small sparkle positions
+    (function addSparkles(){
+      const hero = document.querySelector('.hero');
+      for(let i=0;i<6;i++){
+        const s = document.createElement('div');
+        s.className='sparkle';
+        s.style.background = ['#ffd1eb','#7de1ff','#ffd166','#8adf7d'][i%4];
+        s.style.left = (10 + i*14) + '%';
+        s.style.top = (8 + (i%3)*12) + '%';
+        hero.appendChild(s);
+      }
+    })();
+
+    // friendly focus outline for keyboard users
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Tab') document.body.classList.add('show-focus');
+    });
+
+    // keyboard shortcut: S toggles snow, C triggers confetti, P plays chime
+    document.addEventListener('keydown', function(e){
+      if(e.key === 's' || e.key === 'S') toggleSnow();
+      if(e.key === 'c' || e.key === 'C') window.confettiBurst();
+      if(e.key === 'p' || e.key === 'P') document.getElementById('playChime').click();
+    });
+
+    // small privacy-friendly note: no analytics, all local.
+  </script>
+</body>
+</html>
